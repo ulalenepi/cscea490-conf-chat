@@ -1,7 +1,11 @@
+# OS generated files
+.DS_Store
+Thumbs.db
+
 # Compiled class file
 *.class
 
-# Log file
+# Log files
 *.log
 
 # BlueJ files
@@ -19,6 +23,36 @@
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# Virtual machine crash logs
 hs_err_pid*
 replay_pid*
+
+# Editor and IDE files
+.idea/
+*.iml
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Build directories
+dist/
+build/
+
+# Temporary files
+*.tmp
+*.swp
+*.lock
+
+# Coverage directory used by testing tools
+coverage/
+
+# Generated files from Webpack or other bundlers
+*.bundle.js
+*.map
+
+# Environment files
+.env
+.env.local
+.env.development
+.env.production
+.env.test
