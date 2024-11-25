@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
         }
 
-        #login {
+        #login, #register {
             display: block;
         }
 
@@ -17,9 +17,16 @@
             display: none;
         }
 
-        #messages {
+        #messages, #conferenceMessages, #friendsList, #friendRequests {
             max-height: 400px;
             overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        button {
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -35,17 +42,42 @@
             <button type="submit">Login</button>
         </form>
         <h3 id="error" style="color: red;"></h3>
+        <button onclick="showRegister()">Register</button> <!-- Register button -->
+    </div>
+
+    <!-- Registration form -->
+    <div id="register" style="display: none;">
+        <h2>Register</h2>
+        <form id="registerForm">
+            <input type="text" id="regUsername" placeholder="Username" required><br><br>
+            <input type="password" id="regPassword" placeholder="Password" required><br><br>
+            <input type="text" id="regFullName" placeholder="Full Name" required><br><br>
+            <button type="submit">Register</button>
+        </form>
+        <h3 id="registerError" style="color: red;"></h3>
+        <button onclick="showLogin()">Back to Login</button> <!-- Back to Login button -->
     </div>
 
     <!-- Chat interface -->
     <div id="chat">
         <h2>Welcome, <span id="user"></span>!</h2>
-        <h3>Friends Online:</h3>
+        <h3>Friends:</h3>
         <div id="friendsList"></div>
+        <h3>Friend Requests:</h3>
+        <div id="friendRequests"></div>
+        <button onclick="acceptFriendRequests()">Accept Friend Requests</button>
+        <input type="text" id="searchFriendInput" placeholder="Search friends by name" />
+        <button onclick="searchAndAddFriend()">Search & Add Friend</button><br><br>
+
         <h3>Messages:</h3>
         <div id="messages"></div>
         <input type="text" id="messageInput" placeholder="Enter your message" />
-        <button onclick="sendMessage()">Send Message</button>
+        <button onclick="sendMessage()">Send Message</button><br><br>
+
+        <h3>Settings:</h3>
+        <input type="password" id="newPasswordInput" placeholder="New Password" />
+        <button onclick="changePasswordPrompt()">Change Password</button><br><br>
+
         <button onclick="createConference()">Create Conference</button>
         <button onclick="logout()">Logout</button>
     </div>
@@ -60,6 +92,45 @@
         <button onclick="leaveConference()">Leave Conference</button>
     </div>
 
+    <script>
+        // Function to handle the registration
+        document.getElementById('registerForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            registerUser();
+        });
+
+        function registerUser() {
+            const username = document.getElementById('regUsername').value;
+            const password = document.getElementById('regPassword').value;
+            const fullName = document.getElementById('regFullName').value;
+
+            // Check if the username already exists
+            if (localStorage.getItem(username)) {
+                document.getElementById('registerError').innerText = 'Username already exists!';
+                return;
+            }
+
+            // Save user data in localStorage
+            const newUser = { username, password, fullName };
+            localStorage.setItem(username, JSON.stringify(newUser));
+
+            // Notify the user and switch to login
+            alert('Registration successful! You can now log in.');
+            showLogin();
+        }
+
+        function showRegister() {
+            document.getElementById('login').style.display = 'none';
+            document.getElementById('register').style.display = 'block';
+        }
+
+        function showLogin() {
+            document.getElementById('register').style.display = 'none';
+            document.getElementById('login').style.display = 'block';
+        }
+
+            // Other login and chat functionality will go here
+    </script>
     <script src="webrtc.js"></script>
 </body>
 </html>
