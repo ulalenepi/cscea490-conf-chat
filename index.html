@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conf-Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #login {
+            display: block;
+        }
+
+        #chat, #conference {
+            display: none;
+        }
+
+        #messages {
+            max-height: 400px;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Conf-Chat</h1>
+
+    <!-- Login form -->
+    <div id="login">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required><br><br>
+            <input type="password" id="password" placeholder="Password" required><br><br>
+            <button type="submit">Login</button>
+        </form>
+        <h3 id="error" style="color: red;"></h3>
+    </div>
+
+    <!-- Chat interface -->
+    <div id="chat">
+        <h2>Welcome, <span id="user"></span>!</h2>
+        <h3>Friends Online:</h3>
+        <div id="friendsList"></div>
+        <h3>Messages:</h3>
+        <div id="messages"></div>
+        <input type="text" id="messageInput" placeholder="Enter your message" />
+        <button onclick="sendMessage()">Send Message</button>
+        <button onclick="createConference()">Create Conference</button>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <!-- Conference interface -->
+    <div id="conference">
+        <h2>Conference Chat</h2>
+        <div id="conferenceMessages"></div>
+        <input type="text" id="conferenceMessageInput" placeholder="Enter conference message" />
+        <button onclick="sendConferenceMessage()">Send</button>
+        <button onclick="addParticipant()">Add Participant</button>
+        <button onclick="leaveConference()">Leave Conference</button>
+    </div>
+
+    <script src="webrtc.js"></script>
+</body>
+</html>
